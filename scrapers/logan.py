@@ -17,7 +17,6 @@ def scrape_logan():
     movies = []
     base_url = 'https://thelogantheatre.com'
 
-    # Use the showtimes page
     resp = make_request(f'{base_url}/showtimes')
     if not resp:
         resp = make_request(base_url)
@@ -29,63 +28,52 @@ def scrape_logan():
     soup = BeautifulSoup(resp.text, 'lxml')
     today = datetime.now().strftime('%Y-%m-%d')
 
-    # Extract full page text and look for movie patterns
-    # Logan format: "Movie Title - Rating" followed by times
-    page_text = soup.get_text()
+    # Find moviepad elements
+    movie_pads = soup.find_all(class_='moviepad')
 
-    # Find movie title elements - they're typically in specific divs/spans
-    # Look for patterns like links with movie info
-    movie_sections = soup.find_all(['div', 'article', 'section'], class_=re.compile(r'movie|film|show', re.I))
-
-    seen = set()
-
-    # Also try parsing from the text directly
-    # Pattern: movie titles followed by ratings and times
-    lines = page_text.split('\n')
-    current_title = None
-    current_times = []
-
-    for i, line in enumerate(lines):
-        line = line.strip()
-        if not line:
+    for pad in movie_pads:
+        # Title is in the img tag's title attribute
+        img = pad.find('img')
+        if not img:
             continue
 
-        # Check if this looks like a movie title (not a time, not navigation)
-        # Movie titles are typically Title Case and reasonable length
-        if (len(line) > 3 and len(line) < 60 and
-            not re.match(r'^\d', line) and
-            not line.lower() in ['movies', 'events', 'menu', 'home', 'contact', 'about']):
+        title = img.get('title', '').strip()
+        if not title:
+            # Try alt attribute
+            title = img.get('alt', '').strip()
+        if not title:
+            continue
 
-            # Check if next lines have times
-            times_found = []
-            for j in range(1, 4):
-                if i + j < len(lines):
-                    next_line = lines[i + j].strip()
-                    time_matches = re.findall(r'(\d{1,2}:\d{2}\s*[ap])', next_line, re.I)
-                    times_found.extend(time_matches)
+        # Find showtimes
+        showtime_links = pad.find_all('a', href=True)
+        times = []
+        for link in showtime_links:
+            link_text = link.get_text().strip()
+            # Match time patterns like "1:00p" or "7:30p"
+            if re.match(r'\d{1,2}:\d{2}[ap]', link_text, re.I):
+                time_normalized = parse_time(link_text + 'm')
+                if time_normalized and time_normalized not in times:
+                    times.append(time_normalized)
 
-            if times_found and line not in seen:
-                # Skip navigation items
-                skip = ['movie trivia', 'membership', 'gift card', 'coming soon',
-                        'ticket pricing', 'now showing', 'food', 'drink', 'menu']
-                if any(s in line.lower() for s in skip):
-                    continue
+        if not times:
+            continue
 
-                seen.add(line)
-                times = [parse_time(t + 'm') for t in times_found[:6]]
+        # Get ticket URL
+        ticket_link = pad.find('a', href=re.compile(r'formovietickets|ticket'))
+        ticket_url = ticket_link['href'] if ticket_link else f'{base_url}/showtimes'
 
-                movies.append({
-                    'title': line,
-                    'theater': THEATER_INFO['name'],
-                    'theater_url': THEATER_INFO['url'],
-                    'address': THEATER_INFO['address'],
-                    'date': today,
-                    'times': times if times else ['See website'],
-                    'format': None,
-                    'director': None,
-                    'year': None,
-                    'ticket_url': f'{base_url}/showtimes'
-                })
+        movies.append({
+            'title': title,
+            'theater': THEATER_INFO['name'],
+            'theater_url': THEATER_INFO['url'],
+            'address': THEATER_INFO['address'],
+            'date': today,
+            'times': times,
+            'format': None,
+            'director': None,
+            'year': None,
+            'ticket_url': ticket_url
+        })
 
     logger.info(f"Logan Theatre: Found {len(movies)} screenings")
     return movies

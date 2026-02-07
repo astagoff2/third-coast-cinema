@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-07T15:28:17.773626",
+  "last_updated": "2026-02-07T15:29:10.301355",
   "week_of": "2026-02-07",
   "movies": [
     {
@@ -127,6 +127,116 @@
       "director": null,
       "year": null,
       "ticket_url": "https://musicboxtheatre.com/films-and-events/joe-dirt"
+    },
+    {
+      "title": "The Secret Agent (Subtitled)",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "1:00 PM",
+        "7:00 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52647&PLACEID=7"
+    },
+    {
+      "title": "Bugonia",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "4:20 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52660&PLACEID=7"
+    },
+    {
+      "title": "Network (1976)",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "11:00 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=51854&PLACEID=7"
+    },
+    {
+      "title": "Whistle",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "12:20 PM",
+        "2:45 PM",
+        "5:00 PM",
+        "7:30 PM",
+        "10:00 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52643&PLACEID=8"
+    },
+    {
+      "title": "Send Help",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "12:10 PM",
+        "2:30 PM",
+        "5:15 PM",
+        "7:40 PM",
+        "10:00 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52649&PLACEID=6"
+    },
+    {
+      "title": "Iron Lung",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "8:00 PM",
+        "10:30 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52654&PLACEID=9"
+    },
+    {
+      "title": "Hamnet",
+      "theater": "Logan Theatre",
+      "theater_url": "https://thelogantheatre.com",
+      "address": "2646 N Milwaukee Ave",
+      "date": "2026-02-07",
+      "times": [
+        "12:00 PM",
+        "2:40 PM",
+        "5:20 PM"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52653&PLACEID=9"
     },
     {
       "title": "Critic\u2019s Cut 2025",
