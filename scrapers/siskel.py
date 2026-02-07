@@ -1,6 +1,7 @@
 """Scraper for Gene Siskel Film Center using Playwright."""
 from .utils import clean_text, logger
 from datetime import datetime
+import re
 
 THEATER_INFO = {
     'name': 'Gene Siskel Film Center',
@@ -42,48 +43,85 @@ def scrape_siskel():
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(content, 'lxml')
 
-    today = datetime.now().strftime('%Y-%m-%d')
-    seen = set()
+    current_year = datetime.now().year
+    current_month = datetime.now().month
 
-    # Find the calendar view and extract film links
+    # Find the calendar view
     calendar = soup.find(class_='view-monthly-calendar')
     if not calendar:
         logger.warning("Siskel: Could not find calendar view")
         return movies
 
-    for a in calendar.find_all('a', href=True):
-        href = a.get('href', '')
-        title = a.get_text(strip=True)
+    # Find all day containers
+    days = calendar.find_all(class_='calendar-view-day')
 
-        # Skip navigation links
-        if not title or len(title) < 3:
+    for day in days:
+        # Get the day number
+        time_elem = day.find(class_='calendar-view-day__number')
+        if not time_elem:
             continue
-        if 'next month' in title.lower() or 'previous' in title.lower():
+
+        day_num = time_elem.get_text(strip=True)
+        if not day_num.isdigit():
             continue
 
-        # Clean up title
-        title = clean_text(title)
+        day_num = int(day_num)
 
-        # Skip duplicates
-        if title in seen:
+        # Build the date
+        try:
+            date = datetime(current_year, current_month, day_num)
+            date_str = date.strftime('%Y-%m-%d')
+        except ValueError:
             continue
-        seen.add(title)
 
-        # Build ticket URL
-        ticket_url = f"{THEATER_INFO['url']}{href}" if href.startswith('/') else href
+        # Get the films list
+        rows = day.find(class_='calendar-view-day__rows')
+        if not rows:
+            continue
 
-        movies.append({
-            'title': title,
-            'theater': THEATER_INFO['name'],
-            'theater_url': THEATER_INFO['url'],
-            'address': THEATER_INFO['address'],
-            'date': today,
-            'times': ['See website'],
-            'format': None,
-            'director': None,
-            'year': None,
-            'ticket_url': ticket_url
-        })
+        # Each li contains a film
+        for li in rows.find_all('li'):
+            # Get the link and title
+            link = li.find('a')
+            if not link:
+                continue
+
+            title = link.get_text(strip=True)
+            href = link.get('href', '')
+
+            if not title or len(title) < 2:
+                continue
+
+            # Skip navigation items
+            if 'next month' in title.lower():
+                continue
+
+            title = clean_text(title)
+
+            # Try to find the time - usually in a sibling or nearby element
+            time_text = None
+            li_text = li.get_text()
+            time_match = re.search(r'(\d{1,2}:\d{2}\s*[ap]m)', li_text, re.IGNORECASE)
+            if time_match:
+                time_text = time_match.group(1)
+
+            # Build ticket URL
+            ticket_url = f"{THEATER_INFO['url']}{href}" if href.startswith('/') else href
+            if not ticket_url:
+                ticket_url = f"{THEATER_INFO['url']}/playing-this-month"
+
+            movies.append({
+                'title': title,
+                'theater': THEATER_INFO['name'],
+                'theater_url': THEATER_INFO['url'],
+                'address': THEATER_INFO['address'],
+                'date': date_str,
+                'times': [time_text] if time_text else ['See website'],
+                'format': None,
+                'director': None,
+                'year': None,
+                'ticket_url': ticket_url
+            })
 
     logger.info(f"Gene Siskel: Found {len(movies)} screenings")
     return movies
@@ -92,4 +130,4 @@ def scrape_siskel():
 if __name__ == '__main__':
     results = scrape_siskel()
     for m in results:
-        print(f"{m['title']} -> {m['ticket_url']}")
+        print(f"{m['date']} - {m['title']} @ {m['times']}")

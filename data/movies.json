@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-07T16:40:31.030457",
+  "last_updated": "2026-02-07T16:45:10.377541",
   "week_of": "2026-02-07",
   "movies": [
     {
@@ -9,7 +9,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "11:00 am"
       ],
       "format": null,
       "director": null,
@@ -23,7 +23,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "11:30 am"
       ],
       "format": null,
       "director": null,
@@ -37,7 +37,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "2:00 pm"
       ],
       "format": null,
       "director": null,
@@ -51,7 +51,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "4:00 pm"
       ],
       "format": null,
       "director": null,
@@ -65,7 +65,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "6:00 pm"
       ],
       "format": null,
       "director": null,
@@ -79,7 +79,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "7:00 pm"
       ],
       "format": null,
       "director": null,
@@ -93,7 +93,7 @@
       "address": "164 N State St",
       "date": "2026-02-07",
       "times": [
-        "See website"
+        "8:30 pm"
       ],
       "format": null,
       "director": null,
@@ -101,13 +101,27 @@
       "ticket_url": "https://www.siskelfilmcenter.org/poet"
     },
     {
+      "title": "MY UNDESIRABLE FRIENDS: PART I \u2014 LAST AIR IN MOSCOW",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-08",
+      "times": [
+        "11:00 am"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/my-undesirable-friends"
+    },
+    {
       "title": "HYENAS",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-08",
       "times": [
-        "See website"
+        "12:00 pm"
       ],
       "format": null,
       "director": null,
@@ -119,9 +133,9 @@
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-08",
       "times": [
-        "See website"
+        "2:30 pm"
       ],
       "format": null,
       "director": null,
@@ -133,9 +147,9 @@
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-08",
       "times": [
-        "See website"
+        "4:30 pm"
       ],
       "format": null,
       "director": null,
@@ -143,13 +157,153 @@
       "ticket_url": "https://www.siskelfilmcenter.org/blknws"
     },
     {
+      "title": "A POET",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-08",
+      "times": [
+        "6:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/poet"
+    },
+    {
+      "title": "A POET",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-09",
+      "times": [
+        "5:30 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/poet"
+    },
+    {
+      "title": "SPACE IS THE PLACE",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-09",
+      "times": [
+        "6:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/space-place"
+    },
+    {
+      "title": "MAGELLAN",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-09",
+      "times": [
+        "8:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/magellan"
+    },
+    {
+      "title": "QUEEN KELLY",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-09",
+      "times": [
+        "8:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/queen-kelly"
+    },
+    {
+      "title": "A POET",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-10",
+      "times": [
+        "5:30 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/poet"
+    },
+    {
+      "title": "THX 1138 \u2013 DIRECTOR'S CUT",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-10",
+      "times": [
+        "6:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/thx-1138"
+    },
+    {
+      "title": "MAGELLAN",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-10",
+      "times": [
+        "8:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/magellan"
+    },
+    {
+      "title": "QUEEN KELLY",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-10",
+      "times": [
+        "8:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/queen-kelly"
+    },
+    {
+      "title": "A POET",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-11",
+      "times": [
+        "5:30 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/poet"
+    },
+    {
       "title": "COME BACK, AFRICA",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-11",
       "times": [
-        "See website"
+        "6:00 pm"
       ],
       "format": null,
       "director": null,
@@ -157,13 +311,27 @@
       "ticket_url": "https://www.siskelfilmcenter.org/come-back-africa"
     },
     {
+      "title": "MAGELLAN",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-11",
+      "times": [
+        "8:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/magellan"
+    },
+    {
       "title": "PRIIT P\u00c4RN AND OLGA P\u00c4RN: LUNA ROSSA",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-12",
       "times": [
-        "See website"
+        "6:00 pm"
       ],
       "format": null,
       "director": null,
@@ -171,13 +339,41 @@
       "ticket_url": "https://www.siskelfilmcenter.org/luna-rossa"
     },
     {
+      "title": "A POET",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-12",
+      "times": [
+        "8:30 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/poet"
+    },
+    {
+      "title": "TWO BY MIKE DE LEON: BATCH '81",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-12",
+      "times": [
+        "8:30 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/batch-81"
+    },
+    {
       "title": "PAYING FOR IT",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-13",
       "times": [
-        "See website"
+        "6:00 pm"
       ],
       "format": null,
       "director": null,
@@ -189,9 +385,9 @@
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-13",
       "times": [
-        "See website"
+        "6:15 pm"
       ],
       "format": null,
       "director": null,
@@ -199,13 +395,27 @@
       "ticket_url": "https://www.siskelfilmcenter.org/my-fathers-shadow"
     },
     {
+      "title": "PAYING FOR IT",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-13",
+      "times": [
+        "8:15 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/paying-it"
+    },
+    {
       "title": "ETERNAL SUNSHINE OF THE SPOTLESS MIND",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-13",
       "times": [
-        "See website"
+        "8:30 pm"
       ],
       "format": null,
       "director": null,
@@ -213,13 +423,27 @@
       "ticket_url": "https://www.siskelfilmcenter.org/eternal-sunshine"
     },
     {
+      "title": "MY FATHER'S SHADOW",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-14",
+      "times": [
+        "12:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/my-fathers-shadow"
+    },
+    {
       "title": "CONVERSATION PIECE",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-14",
       "times": [
-        "See website"
+        "12:30 pm"
       ],
       "format": null,
       "director": null,
@@ -227,13 +451,55 @@
       "ticket_url": "https://www.siskelfilmcenter.org/conversation-piece"
     },
     {
+      "title": "MY FATHER'S SHADOW",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-14",
+      "times": [
+        "2:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/my-fathers-shadow"
+    },
+    {
+      "title": "PAYING FOR IT",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-14",
+      "times": [
+        "3:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/paying-it"
+    },
+    {
+      "title": "MY FATHER'S SHADOW",
+      "theater": "Gene Siskel Film Center",
+      "theater_url": "https://www.siskelfilmcenter.org",
+      "address": "164 N State St",
+      "date": "2026-02-14",
+      "times": [
+        "4:00 pm"
+      ],
+      "format": null,
+      "director": null,
+      "year": null,
+      "ticket_url": "https://www.siskelfilmcenter.org/my-fathers-shadow"
+    },
+    {
       "title": "STALKER",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-14",
       "times": [
-        "See website"
+        "5:15 pm"
       ],
       "format": null,
       "director": null,
@@ -245,9 +511,9 @@
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-14",
       "times": [
-        "See website"
+        "6:00 pm"
       ],
       "format": null,
       "director": null,
@@ -255,270 +521,32 @@
       "ticket_url": "https://www.siskelfilmcenter.org/kisapmata"
     },
     {
-      "title": "SAMBIZANGA",
+      "title": "PAYING FOR IT",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-14",
       "times": [
-        "See website"
+        "8:00 pm"
       ],
       "format": null,
       "director": null,
       "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/sambizanga"
+      "ticket_url": "https://www.siskelfilmcenter.org/paying-it"
     },
     {
-      "title": "ALPHAVILLE",
+      "title": "ETERNAL SUNSHINE OF THE SPOTLESS MIND",
       "theater": "Gene Siskel Film Center",
       "theater_url": "https://www.siskelfilmcenter.org",
       "address": "164 N State St",
-      "date": "2026-02-07",
+      "date": "2026-02-14",
       "times": [
-        "See website"
+        "8:30 pm"
       ],
       "format": null,
       "director": null,
       "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/alphaville"
-    },
-    {
-      "title": "IDENTITY: A CZECH GRAPHIC DESIGN LOVE STORY",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/identity"
-    },
-    {
-      "title": "CUTTING THROUGH ROCKS",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/cutting-through-rocks"
-    },
-    {
-      "title": "LIVING IN A PIECE OF FURNITURE: GERRIT RIETVELD\u2019S HOUSES",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/living-piece-furniture"
-    },
-    {
-      "title": "BUILDING ON THE EDGE",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/building-edge"
-    },
-    {
-      "title": "CHANGING LANES",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/changing-lanes"
-    },
-    {
-      "title": "PRIMER",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/primer"
-    },
-    {
-      "title": "LEWERENTZ DIVINE DARKNESS",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/lewerentz"
-    },
-    {
-      "title": "THE RAZOR'S EDGE",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/razors-edge"
-    },
-    {
-      "title": "WE THE OTHERS",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/we-others"
-    },
-    {
-      "title": "AT THE GARDEN'S PACE",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/gardens-pace"
-    },
-    {
-      "title": "THE SPACE ARCHITECT",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/space-architect"
-    },
-    {
-      "title": "MIRALLES",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/miralles"
-    },
-    {
-      "title": "OFF CENTER: PHILIP MALLORY JONES",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/philip-mallory-jones"
-    },
-    {
-      "title": "KE\u00cfTA: THE HERITAGE OF THE GRIOT",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/keita"
-    },
-    {
-      "title": "KIOTO AOKI: FINDINGS",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/findings"
-    },
-    {
-      "title": "NATCHEZ",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/natchez"
-    },
-    {
-      "title": "THE BEIRUT TRILOGY",
-      "theater": "Gene Siskel Film Center",
-      "theater_url": "https://www.siskelfilmcenter.org",
-      "address": "164 N State St",
-      "date": "2026-02-07",
-      "times": [
-        "See website"
-      ],
-      "format": null,
-      "director": null,
-      "year": null,
-      "ticket_url": "https://www.siskelfilmcenter.org/beirut-trilogy"
+      "ticket_url": "https://www.siskelfilmcenter.org/eternal-sunshine"
     },
     {
       "title": "Museum Hours",
