@@ -31,32 +31,33 @@ body {
     position: relative;
 }
 
-/* Chicago Movie Background */
+/* Classic Chicago Photography Background */
 body::before {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 300vh;
     z-index: -1;
     background-image:
-        url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200&q=60'),
-        url('https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=1200&q=60');
-    background-size: cover, cover;
-    background-position: center top, center bottom;
+        url('https://static.life.com/wp-content/uploads/migrated/2014/06/140606-chicago-01-1024x801.jpg'),
+        url('https://static.life.com/wp-content/uploads/migrated/2014/06/140606-chicago-05-1024x819.jpg'),
+        url('https://static.life.com/wp-content/uploads/migrated/2014/06/140606-chicago-091.jpg');
+    background-size: 100% 33.33%;
+    background-position: center 0%, center 50%, center 100%;
     background-repeat: no-repeat;
-    opacity: 0.04;
-    filter: grayscale(100%);
-    animation: subtle-drift 60s ease-in-out infinite alternate;
+    opacity: 0.06;
+    filter: grayscale(100%) contrast(1.1);
+    animation: slow-scroll 120s linear infinite;
 }
 
-@keyframes subtle-drift {
+@keyframes slow-scroll {
     0% {
-        background-position: center 0%, center 100%;
+        transform: translateY(0);
     }
     100% {
-        background-position: center 10%, center 90%;
+        transform: translateY(-66.66%);
     }
 }
 
