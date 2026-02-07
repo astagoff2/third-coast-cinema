@@ -24,15 +24,12 @@
 
         {% for date, screenings in movies_by_date.items() %}
         <section class="day-section">
-            <h2 class="day-header" onclick="this.parentElement.classList.toggle('collapsed')">
-                <span class="day-name">{{ date | format_day }}</span>
-                <span class="day-count">{{ screenings|length }}</span>
-            </h2>
+            <h2 class="day-header" onclick="this.parentElement.classList.toggle('collapsed')">{{ date | format_day }}</h2>
 
             <div class="screenings">
                 {% for movie in screenings %}
                 <a href="{{ movie.ticket_url }}" class="screening" target="_blank" rel="noopener">
-                    <span class="film-title">{{ movie.title }}</span>
+                    <span class="film-title">{{ movie.title }}{% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}</span>
                     <span class="film-venue">{{ movie.theater }}</span>
                     <span class="film-times">{{ movie.times | join(', ') }}</span>
                 </a>
