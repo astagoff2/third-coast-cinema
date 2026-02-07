@@ -1,4 +1,4 @@
- name: Build and Deploy
+name: Build and Deploy
 
   on:
     schedule:
@@ -26,4 +26,3 @@
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: ./site
-
