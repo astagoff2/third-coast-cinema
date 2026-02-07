@@ -154,9 +154,6 @@ main {
     border-bottom: 2px solid var(--text);
     margin-bottom: 0.5rem;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     user-select: none;
 }
 
@@ -164,28 +161,9 @@ main {
     color: var(--accent);
 }
 
-.day-header::after {
-    content: '−';
-    font-size: 1.25rem;
-    font-weight: 300;
-    color: var(--text-muted);
-}
-
-.day-count {
-    font-family: var(--sans);
-    font-size: 0.75rem;
-    color: var(--text-light);
-    font-weight: 400;
-    margin-left: 0.5rem;
-}
-
 /* Collapsed state */
 .day-section.collapsed .screenings {
     display: none;
-}
-
-.day-section.collapsed .day-header::after {
-    content: '+';
 }
 
 /* Screenings - Compact List */
@@ -220,6 +198,16 @@ main {
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text);
+}
+
+.film-title .format {
+    font-family: var(--sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-left: 0.5rem;
 }
 
 .film-venue {
