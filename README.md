@@ -11,10 +11,11 @@ A website showing weekly movie schedules from Chicago's independent and repertor
 - Music Box Theatre
 - Logan Theatre
 - Facets Cinematheque
+- Alamo Drafthouse Wrigleyville
 
 ## How It Works
 
-Python scrapers fetch showtimes from each theater's website, combine them into a unified JSON file, and generate a static HTML page organized by date.
+Python scrapers fetch showtimes from each theater's website (using Playwright for JavaScript-rendered pages), combine them into a unified JSON file, and generate a static HTML page organized by date.
 
 ## Local Development
 
