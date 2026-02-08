@@ -42,10 +42,10 @@
             {% endfor %}
         </section>
 
-        <!-- Tonight Section -->
+        <!-- Today Section -->
         {% if tonight_movies %}
         <section class="tonight-section">
-            <h2 class="tonight-header">Tonight</h2>
+            <h2 class="tonight-header">Today</h2>
             <div class="screenings">
                 {% for movie in tonight_movies %}
                 <div class="screening" data-theater="{{ movie.theater }}">
