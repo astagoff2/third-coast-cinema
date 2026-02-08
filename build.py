@@ -110,8 +110,17 @@ def generate_html(movies, template_dir, output_path):
 
     movies_by_date = group_by_date(movies)
 
+    # Get unique theaters
+    theaters = sorted(set(m['theater'] for m in movies))
+
+    # Get tonight's movies
+    today = datetime.now().strftime('%Y-%m-%d')
+    tonight_movies = [m for m in movies if m['date'] == today]
+
     html = template.render(
         movies_by_date=movies_by_date,
+        theaters=theaters,
+        tonight_movies=tonight_movies,
         week_of=datetime.now().strftime('%B %-d, %Y'),
         last_updated=datetime.now().strftime('%B %-d at %-I:%M %p')
     )

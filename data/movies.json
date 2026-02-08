@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-07T19:29:58.995975",
+  "last_updated": "2026-02-07T19:41:57.700676",
   "week_of": "2026-02-07",
   "movies": [
     {
@@ -549,6 +549,20 @@
       "ticket_url": "https://www.siskelfilmcenter.org/eternal-sunshine"
     },
     {
+      "title": "My Left Eye Sees Ghosts",
+      "theater": "Doc Films",
+      "theater_url": "https://docfilms.org",
+      "address": "Max Palevsky Cinema, Ida Noyes Hall, 1212 E 59th St",
+      "date": "2026-02-07",
+      "times": [
+        "9:30 PM"
+      ],
+      "format": "35mm",
+      "director": null,
+      "year": 2002,
+      "ticket_url": "https://docfilms.org"
+    },
+    {
       "title": "Museum Hours",
       "theater": "Doc Films",
       "theater_url": "https://docfilms.org",
@@ -574,6 +588,20 @@
       "format": "DCP",
       "director": null,
       "year": 1947,
+      "ticket_url": "https://docfilms.org/calendar/2026winter/board-picks#screening-3"
+    },
+    {
+      "title": "C\u00f4t\u00e9 Jardin / Rien d\u2019extraordinaire / Jardin du soleil / Fleur de Sel / Jardin du Marais / Jardin du Sel / Sous le Soleil / Sources",
+      "theater": "Doc Films",
+      "theater_url": "https://docfilms.org",
+      "address": "Max Palevsky Cinema, Ida Noyes Hall, 1212 E 59th St",
+      "date": "2026-02-08",
+      "times": [
+        "7:00 PM"
+      ],
+      "format": "16mm",
+      "director": null,
+      "year": 2007,
       "ticket_url": "https://docfilms.org"
     },
     {
@@ -1008,7 +1036,7 @@
       "format": null,
       "director": null,
       "year": null,
-      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52644&PLACEID=8"
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52645&PLACEID=8"
     },
     {
       "title": "Send Help",
@@ -1026,7 +1054,7 @@
       "format": null,
       "director": null,
       "year": null,
-      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52651&PLACEID=6"
+      "ticket_url": "https://58699.formovietickets.com:2235/T.ASP?WCI=BT&Page=PickTickets&SHOWID=52652&PLACEID=6"
     },
     {
       "title": "Iron Lung",
@@ -1366,8 +1394,7 @@
       "address": "3519 N Clark St",
       "date": "2026-02-07",
       "times": [
-        "10:00 PM",
-        "6:45 PM"
+        "10:00 PM"
       ],
       "format": null,
       "director": null,
@@ -1741,7 +1768,6 @@
       "date": "2026-02-07",
       "times": [
         "10:00 PM",
-        "7:00 PM",
         "7:45 PM",
         "9:15 PM"
       ],

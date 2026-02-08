@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chicago Art House Cinema</title>
+
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:title" content="Chicago Art House Cinema">
+    <meta property="og:description" content="Weekly showtimes for Chicago's independent and repertory theaters: Gene Siskel, Doc Films, Music Box, Logan, Alamo Drafthouse, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://astagoff2.github.io/chicago-arthouse-movies/">
+    <meta property="og:image" content="https://images.squarespace-cdn.com/content/v1/5403d729e4b0903f2ff85444/1618950305546-QR2QO40JXWD3VTVYJPLI/image.jpeg?format=1200w">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chicago Art House Cinema">
+    <meta name="twitter:description" content="Weekly showtimes for Chicago's independent and repertory theaters.">
+    <meta name="twitter:image" content="https://images.squarespace-cdn.com/content/v1/5403d729e4b0903f2ff85444/1618950305546-QR2QO40JXWD3VTVYJPLI/image.jpeg?format=1200w">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -22,13 +34,37 @@
             <p class="updated">Last updated {{ last_updated }}</p>
         </section>
 
+        <!-- Theater Filter -->
+        <section class="theater-filter">
+            <button class="filter-btn active" data-theater="all">All</button>
+            {% for theater in theaters %}
+            <button class="filter-btn" data-theater="{{ theater }}">{{ theater | replace('Gene Siskel Film Center', 'Siskel') | replace('Music Box Theatre', 'Music Box') | replace('Alamo Drafthouse', 'Alamo') | replace('Logan Theatre', 'Logan') | replace('Doc Films', 'Doc') }}</button>
+            {% endfor %}
+        </section>
+
+        <!-- Tonight Section -->
+        {% if tonight_movies %}
+        <section class="tonight-section">
+            <h2 class="tonight-header">Tonight</h2>
+            <div class="screenings">
+                {% for movie in tonight_movies %}
+                <div class="screening" data-theater="{{ movie.theater }}">
+                    <span class="film-title">{{ movie.title }}{% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}</span>
+                    <a href="{{ movie.theater_url }}" class="film-venue" target="_blank" rel="noopener">{{ movie.theater }}</a>
+                    <a href="{{ movie.ticket_url }}" class="film-times" target="_blank" rel="noopener">{{ movie.times | join(', ') }}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
         {% for date, screenings in movies_by_date.items() %}
         <section class="day-section">
             <h2 class="day-header" onclick="this.parentElement.classList.toggle('collapsed')">{{ date | format_day }}</h2>
 
             <div class="screenings">
                 {% for movie in screenings %}
-                <div class="screening">
+                <div class="screening" data-theater="{{ movie.theater }}">
                     <span class="film-title">{{ movie.title }}{% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}</span>
                     <a href="{{ movie.theater_url }}" class="film-venue" target="_blank" rel="noopener">{{ movie.theater }}</a>
                     <a href="{{ movie.ticket_url }}" class="film-times" target="_blank" rel="noopener">{{ movie.times | join(', ') }}</a>
@@ -60,5 +96,33 @@
         <p class="footer-note">Showtimes scraped from theater websites. Verify before attending.</p>
         <p class="footer-note" style="margin-top: 0.5rem;"><a href="about.html">About</a></p>
     </footer>
+
+    <script>
+        // Theater filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theater = btn.dataset.theater;
+
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter screenings
+                document.querySelectorAll('.screening').forEach(screening => {
+                    if (theater === 'all' || screening.dataset.theater === theater) {
+                        screening.style.display = '';
+                    } else {
+                        screening.style.display = 'none';
+                    }
+                });
+
+                // Hide empty day sections
+                document.querySelectorAll('.day-section').forEach(section => {
+                    const visible = section.querySelectorAll('.screening:not([style*="display: none"])');
+                    section.style.display = visible.length > 0 ? '' : 'none';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
