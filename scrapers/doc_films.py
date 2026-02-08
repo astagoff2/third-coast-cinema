@@ -12,111 +12,135 @@ THEATER_INFO = {
 }
 
 
-def scrape_doc_films():
-    """Scrape Doc Films weekly schedule."""
+def get_series_urls():
+    """Get all series page URLs from the calendar page."""
+    base_url = 'https://docfilms.org'
+    calendar_url = f'{base_url}/calendar/'
+
+    resp = make_request(calendar_url)
+    if not resp:
+        return []
+
+    soup = BeautifulSoup(resp.text, 'lxml')
+    series_urls = set()
+
+    # Find all series links (format: /calendar/2026winter/series-name)
+    for link in soup.find_all('a', href=True):
+        href = link['href']
+        if re.match(r'/calendar/\d{4}\w+/[\w-]+', href):
+            full_url = base_url + href
+            series_urls.add(full_url)
+
+    return list(series_urls)
+
+
+def parse_series_page(url):
+    """Parse a series page and extract all screenings."""
     movies = []
     base_url = 'https://docfilms.org'
+    current_year = datetime.now().year
 
-    resp = make_request(base_url)
+    resp = make_request(url)
     if not resp:
-        logger.error("Failed to fetch Doc Films")
         return movies
 
     soup = BeautifulSoup(resp.text, 'lxml')
-    current_year = datetime.now().year
 
-    # Build a map of film titles to their calendar URLs from carousel
-    title_to_url = {}
-    for slide in soup.find_all(class_='carousel__slide'):
-        link = slide.find('a')
-        if link:
-            href = link.get('href', '')
-            text = slide.get_text(strip=True)
-            # Extract title from format: "Title (Year) · Director · ..."
-            title_match = re.match(r'([^(]+)\s*\((\d{4})\)', text)
-            if title_match:
-                title = clean_text(title_match.group(1))
-                if href and not href.startswith('http'):
-                    href = base_url + '/' + href.lstrip('/')
-                title_to_url[title.lower()] = href
+    # Find all screening divs
+    screenings = soup.find_all('div', class_='screening')
 
-    # Parse the cards section for weekly schedule
-    cards = soup.find(class_='cards')
-    if not cards:
-        logger.warning("Doc Films: Could not find cards section")
-        return movies
-
-    seen = set()
-
-    for item in cards.find_all(['div', 'a'], recursive=False):
-        text = item.get_text(strip=True)
-        if not text:
+    for screening in screenings:
+        # Get title from h2 (format: "Title (Year)")
+        h2 = screening.find('h2')
+        if not h2:
             continue
 
-        # Pattern: "Title (Year)Day, Month Date @ Time[Format]"
-        # Some films have multiple dates: "Friday, February 6 @ 7:00 PM · Saturday, February 7 @ 9:30 PM"
-
-        # Extract title and year
-        title_match = re.match(r'([^(]+)\s*\(([^)]+)\)', text)
+        title_text = h2.get_text(strip=True)
+        title_match = re.match(r'(.+?)\s*\((\d{4})\)', title_text)
         if not title_match:
             continue
 
         title = clean_text(title_match.group(1))
-        year_str = title_match.group(2)
+        year = int(title_match.group(2))
 
-        # Try to parse year (might be "2020 / 2002 / 1976" for shorts programs)
-        year = None
-        year_match = re.search(r'\d{4}', year_str)
-        if year_match:
-            year = int(year_match.group())
+        # Get director and format from first h3
+        h3_list = screening.find_all('h3')
+        director = None
+        film_format = None
 
-        remainder = text[title_match.end():]
+        if h3_list:
+            # First h3 has director · runtime · format
+            info_h3 = h3_list[0].get_text(strip=True)
+            parts = [p.strip() for p in info_h3.split('·')]
+            if parts:
+                director = parts[0]
+            # Look for format
+            format_match = re.search(r'(35mm|16mm|70mm|DCP|Digital)', info_h3, re.I)
+            if format_match:
+                film_format = format_match.group(1)
 
-        # Find format at the end (35mm, DCP, Digital, etc.)
-        format_match = re.search(r'(35mm|16mm|70mm|DCP|[Dd]igital)(?:\s*/\s*(?:35mm|16mm|DCP|[Dd]igital))*\s*$', remainder)
-        film_format = format_match.group(1) if format_match else None
+        # Get dates and times from last h3
+        if len(h3_list) >= 2:
+            datetime_h3 = h3_list[-1]
+            datetime_text = datetime_h3.get_text(strip=True)
 
-        # Find all date/time pairs
-        # Pattern: "Day, Month Date @ Time"
-        datetime_pattern = r'((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+\w+\s+\d{1,2})\s*@\s*(\d{1,2}:\d{2}\s*[APap][Mm])'
-        datetime_matches = re.findall(datetime_pattern, remainder)
+            # Pattern: "Friday, February 13 7:00 PM" or "Friday, February 6 7:00 PM · Saturday, February 7 9:30 PM"
+            # The time links are inside <a> tags, so text concatenates
+            datetime_pattern = r'((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2})\s*(\d{1,2}:\d{2}\s*[APap][Mm])'
 
-        if not datetime_matches:
-            continue
+            matches = re.findall(datetime_pattern, datetime_text)
 
-        # Get ticket URL
-        ticket_url = title_to_url.get(title.lower(), base_url)
+            for date_str, time_str in matches:
+                date = parse_date(date_str, current_year)
+                time = parse_time(time_str)
 
-        for date_str, time_str in datetime_matches:
-            date = parse_date(date_str, current_year)
-            time = parse_time(time_str)
+                if not date:
+                    continue
 
-            if not date:
-                continue
+                # Get the screening anchor ID for direct link
+                screening_id = screening.get('id', '')
+                ticket_url = f"{url}#{screening_id}" if screening_id else url
 
-            key = f"{title}|{date}|{time}"
-            if key in seen:
-                continue
-            seen.add(key)
+                movies.append({
+                    'title': title,
+                    'theater': THEATER_INFO['name'],
+                    'theater_url': THEATER_INFO['url'],
+                    'address': THEATER_INFO['address'],
+                    'date': date,
+                    'times': [time] if time else ['See website'],
+                    'format': film_format,
+                    'director': director,
+                    'year': year,
+                    'ticket_url': ticket_url
+                })
 
-            movies.append({
-                'title': title,
-                'theater': THEATER_INFO['name'],
-                'theater_url': THEATER_INFO['url'],
-                'address': THEATER_INFO['address'],
-                'date': date,
-                'times': [time] if time else ['See website'],
-                'format': film_format,
-                'director': None,
-                'year': year,
-                'ticket_url': ticket_url
-            })
+    return movies
 
-    logger.info(f"Doc Films: Found {len(movies)} screenings")
+
+def scrape_doc_films():
+    """Scrape Doc Films schedule from all series pages."""
+    movies = []
+    seen = set()
+
+    # Get all series page URLs
+    series_urls = get_series_urls()
+    logger.info(f"Doc Films: Found {len(series_urls)} series pages")
+
+    # Parse each series page
+    for url in series_urls:
+        page_movies = parse_series_page(url)
+        for movie in page_movies:
+            # Deduplicate by title+date+time
+            key = f"{movie['title']}|{movie['date']}|{movie['times'][0]}"
+            if key not in seen:
+                seen.add(key)
+                movies.append(movie)
+
+    logger.info(f"Doc Films: Found {len(movies)} total screenings")
     return movies
 
 
 if __name__ == '__main__':
     results = scrape_doc_films()
-    for m in results:
-        print(f"{m['date']} - {m['title']} ({m.get('year', '?')}) @ {m['times']} [{m.get('format', '')}] -> {m['ticket_url']}")
+    for m in sorted(results, key=lambda x: x['date']):
+        print(f"{m['date']} - {m['title']} ({m.get('year', '?')}) @ {m['times']} [{m.get('format', '')}]")
