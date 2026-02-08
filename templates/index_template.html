@@ -49,7 +49,22 @@
             <div class="screenings">
                 {% for movie in tonight_movies %}
                 <div class="screening" data-theater="{{ movie.theater }}">
-                    <span class="film-title">{{ movie.title }}{% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}</span>
+                    <span class="film-title">
+                        {% if movie.letterboxd %}
+                        <a href="{{ movie.letterboxd.letterboxd_url }}" class="film-link" target="_blank" rel="noopener">{{ movie.title }}</a>
+                        {% if movie.letterboxd.rating %}<span class="lb-rating">★ {{ movie.letterboxd.rating }}</span>{% endif %}
+                        {% else %}
+                        {{ movie.title }}
+                        {% endif %}
+                        {% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}
+                        {% if movie.letterboxd and movie.letterboxd.description %}
+                        <span class="film-tooltip">
+                            {% if movie.letterboxd.director %}<strong>{{ movie.letterboxd.director }}</strong><br>{% endif %}
+                            {% if movie.letterboxd.tagline %}<em>{{ movie.letterboxd.tagline }}</em><br><br>{% endif %}
+                            {{ movie.letterboxd.description }}
+                        </span>
+                        {% endif %}
+                    </span>
                     <a href="{{ movie.theater_url }}" class="film-venue" target="_blank" rel="noopener">{{ movie.theater }}</a>
                     <a href="{{ movie.ticket_url }}" class="film-times" target="_blank" rel="noopener">{{ movie.times | join(', ') }}</a>
                 </div>
@@ -65,7 +80,22 @@
             <div class="screenings">
                 {% for movie in screenings %}
                 <div class="screening" data-theater="{{ movie.theater }}">
-                    <span class="film-title">{{ movie.title }}{% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}</span>
+                    <span class="film-title">
+                        {% if movie.letterboxd %}
+                        <a href="{{ movie.letterboxd.letterboxd_url }}" class="film-link" target="_blank" rel="noopener">{{ movie.title }}</a>
+                        {% if movie.letterboxd.rating %}<span class="lb-rating">★ {{ movie.letterboxd.rating }}</span>{% endif %}
+                        {% else %}
+                        {{ movie.title }}
+                        {% endif %}
+                        {% if movie.format %} <span class="format">{{ movie.format }}</span>{% endif %}
+                        {% if movie.letterboxd and movie.letterboxd.description %}
+                        <span class="film-tooltip">
+                            {% if movie.letterboxd.director %}<strong>{{ movie.letterboxd.director }}</strong><br>{% endif %}
+                            {% if movie.letterboxd.tagline %}<em>{{ movie.letterboxd.tagline }}</em><br><br>{% endif %}
+                            {{ movie.letterboxd.description }}
+                        </span>
+                        {% endif %}
+                    </span>
                     <a href="{{ movie.theater_url }}" class="film-venue" target="_blank" rel="noopener">{{ movie.theater }}</a>
                     <a href="{{ movie.ticket_url }}" class="film-times" target="_blank" rel="noopener">{{ movie.times | join(', ') }}</a>
                 </div>

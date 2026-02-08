@@ -20,6 +20,7 @@ from scrapers import (
     scrape_siskel,
     scrape_alamo
 )
+from scrapers.letterboxd import enrich_movies_with_letterboxd
 
 
 def format_day(date_str):
@@ -166,6 +167,10 @@ def main():
                 'ticket_url': 'https://musicboxtheatre.com'
             }
         ]
+
+    # Enrich with Letterboxd data
+    print("\nFetching Letterboxd data...")
+    movies = enrich_movies_with_letterboxd(movies)
 
     # Save data
     save_data(movies, data_dir / 'movies.json')
