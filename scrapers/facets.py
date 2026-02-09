@@ -7,7 +7,7 @@ from datetime import datetime
 
 THEATER_INFO = {
     'name': 'Facets',
-    'url': 'https://www.facets.org',
+    'url': 'https://facets.org',
     'address': '1517 W Fullerton Ave'
 }
 
@@ -15,13 +15,10 @@ THEATER_INFO = {
 def scrape_facets():
     """Scrape Facets screening schedule."""
     movies = []
-    base_url = 'https://www.facets.org'
+    base_url = 'https://facets.org'
 
-    # Try calendar page first
-    resp = make_request(f'{base_url}/calendar')
-    if not resp:
-        resp = make_request(base_url)
-
+    # Use cinema page which lists screenings
+    resp = make_request(f'{base_url}/cinema/')
     if not resp:
         logger.error("Failed to fetch Facets")
         return movies
@@ -29,45 +26,41 @@ def scrape_facets():
     soup = BeautifulSoup(resp.text, 'lxml')
     current_year = datetime.now().year
 
-    # Facets uses program cards
-    # Look for screening/event entries
-    events = soup.find_all(['div', 'article', 'li'], class_=re.compile(r'event|program|screening|film', re.I))
+    # Facets uses portfolio list items with class 'edgtf-pli-title'
+    # Find all portfolio items
+    items = soup.find_all('article', class_=re.compile(r'portfolio-item'))
 
-    if not events:
-        # Try links to programs
-        events = soup.find_all('a', href=re.compile(r'/program|/film|/event|/screening'))
+    if not items:
+        # Fallback: find title elements directly
+        items = soup.find_all('h5', class_='edgtf-pli-title')
 
     seen = set()
 
-    for event in events:
+    for item in items:
         # Get title
-        title_elem = event.find(['h2', 'h3', 'h4', 'strong'])
+        title_elem = item.find('h5', class_='edgtf-pli-title') if item.name == 'article' else item
         if not title_elem:
-            if event.name == 'a':
-                title_elem = event
-            else:
-                continue
+            continue
 
         title = clean_text(title_elem.get_text())
         if not title or len(title) < 2:
             continue
 
-        # Skip navigation and non-movie items
-        skip_words = ['calendar', 'cinema', 'donate', 'about', 'contact', 'view all',
-                      'film camps', 'film camp', 'critic', 'cut 2025', 'wrap party',
-                      'trivia', 'party', 'membership', 'gift', 'rental', 'sunday\'s best']
+        # Skip non-movie items
+        skip_words = ['film camp', 'critic', 'trivia', 'party', 'membership',
+                      'gift', 'rental', 'anime club', 'presents']
         title_lower = title.lower()
-        if title_lower in skip_words or any(s in title_lower for s in skip_words):
+        if any(s in title_lower for s in skip_words):
             continue
 
         if title in seen:
             continue
         seen.add(title)
 
-        text = clean_text(event.get_text())
+        # Get the full item text for date/time extraction
+        text = clean_text(item.get_text()) if item.name == 'article' else ''
 
-        # Find dates
-        # Pattern: "March 6" or "Feb 8 - March 1"
+        # Find dates in the item
         date_match = re.search(
             r'(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}',
             text, re.I
@@ -84,10 +77,13 @@ def scrape_facets():
         times = [parse_time(t) for t in time_matches if t]
 
         # Get link
-        link = event.find('a', href=True) if event.name != 'a' else event
-        event_url = link.get('href', base_url) if link else base_url
-        if event_url and not event_url.startswith('http'):
-            event_url = base_url + event_url
+        link = item.find('a', href=True)
+        if link:
+            event_url = link.get('href', '')
+            if event_url and not event_url.startswith('http'):
+                event_url = base_url + event_url
+        else:
+            event_url = f'{base_url}/cinema/'
 
         movies.append({
             'title': title,
