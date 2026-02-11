@@ -1,4 +1,4 @@
-"""Scraper for Logan Theatre using Playwright."""
+"""Scraper for Logan Theatre using Playwright with stealth."""
 from bs4 import BeautifulSoup
 from .utils import parse_time, logger
 import re
@@ -19,7 +19,7 @@ THEATER_INFO = {
 
 
 def scrape_logan():
-    """Scrape Logan Theatre schedule using Playwright."""
+    """Scrape Logan Theatre schedule using Playwright with stealth settings."""
     movies = []
     base_url = 'https://www.thelogantheatre.com'
 
@@ -29,25 +29,43 @@ def scrape_logan():
 
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
+            # Launch with more stealth-like settings
+            browser = p.chromium.launch(
+                headless=True,
+                args=[
+                    '--disable-blink-features=AutomationControlled',
+                    '--no-sandbox',
+                    '--disable-dev-shm-usage'
+                ]
+            )
 
-            # Set a realistic viewport
-            page.set_viewport_size({"width": 1280, "height": 800})
+            # Create context with realistic browser fingerprint
+            context = browser.new_context(
+                viewport={'width': 1920, 'height': 1080},
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+                locale='en-US',
+                timezone_id='America/Chicago'
+            )
 
-            page.goto(f'{base_url}/?p=showtimes', timeout=45000)
+            page = context.new_page()
 
-            # Wait for page to be fully loaded
-            page.wait_for_load_state('domcontentloaded', timeout=30000)
+            # Navigate to the page
+            page.goto(f'{base_url}/?p=showtimes', timeout=60000, wait_until='networkidle')
 
-            # Wait specifically for moviepad elements to appear
-            try:
-                page.wait_for_selector('.moviepad', timeout=20000)
-            except:
-                logger.warning("Logan Theatre: moviepad not found, trying alternative wait")
-                page.wait_for_timeout(5000)  # Fallback wait
+            # Additional wait for dynamic content
+            page.wait_for_timeout(3000)
+
+            # Try to find moviepad, if not found wait more
+            moviepad_count = page.locator('.moviepad').count()
+            if moviepad_count == 0:
+                logger.warning("Logan Theatre: No moviepad found initially, waiting longer...")
+                page.wait_for_timeout(5000)
+                moviepad_count = page.locator('.moviepad').count()
+
+            logger.info(f"Logan Theatre: Found {moviepad_count} moviepad elements via Playwright")
 
             html = page.content()
+            context.close()
             browser.close()
 
         soup = BeautifulSoup(html, 'lxml')
@@ -55,7 +73,6 @@ def scrape_logan():
 
         # Find moviepad elements
         movie_pads = soup.find_all(class_='moviepad')
-        logger.info(f"Logan Theatre: Found {len(movie_pads)} moviepad elements")
 
         for pad in movie_pads:
             # Title is in the img tag's title attribute
