@@ -1,9 +1,9 @@
-"""Scraper for Logan Theatre using requests."""
+"""Scraper for Logan Theatre using BigScreen.com as data source."""
 from bs4 import BeautifulSoup
 from .utils import parse_time, logger
 import requests
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 THEATER_INFO = {
@@ -12,89 +12,112 @@ THEATER_INFO = {
     'address': '2646 N Milwaukee Ave'
 }
 
+BIGSCREEN_URL = 'https://www.bigscreen.com/Marquee.php?theater=932&view=sched'
+
 
 def scrape_logan():
-    """Scrape Logan Theatre schedule using requests with custom session."""
+    """Scrape Logan Theatre schedule from BigScreen.com."""
     movies = []
-    base_url = 'https://www.thelogantheatre.com'
 
     try:
-        # Create a session with specific settings
-        session = requests.Session()
-
-        # Set headers that mimic a real browser
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Sec-Fetch-User': '?1',
-            'Cache-Control': 'max-age=0',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         }
 
-        # First request to get cookies
-        session.get(base_url, headers=headers, timeout=30)
+        # Scrape today and next 6 days
+        for day_offset in range(7):
+            date = datetime.now() + timedelta(days=day_offset)
+            date_str = date.strftime('%Y-%m-%d')
 
-        # Now get the showtimes page
-        resp = session.get(f'{base_url}/?p=showtimes', headers=headers, timeout=30)
+            url = f'{BIGSCREEN_URL}&showdate={date_str}'
+            resp = requests.get(url, headers=headers, timeout=30)
 
-        if resp.status_code != 200:
-            logger.error(f"Logan Theatre: Got status code {resp.status_code}")
-            return movies
-
-        soup = BeautifulSoup(resp.text, 'lxml')
-        today = datetime.now().strftime('%Y-%m-%d')
-
-        # Find moviepad elements
-        movie_pads = soup.find_all(class_='moviepad')
-        logger.info(f"Logan Theatre: Found {len(movie_pads)} moviepad elements")
-
-        for pad in movie_pads:
-            # Title is in the img tag's title attribute
-            img = pad.find('img')
-            if not img:
+            if resp.status_code != 200:
+                logger.error(f"Logan Theatre: Got status code {resp.status_code} for {date_str}")
                 continue
 
-            title = img.get('title', '').strip()
-            if not title:
-                title = img.get('alt', '').strip()
-            if not title:
-                continue
+            soup = BeautifulSoup(resp.text, 'lxml')
 
-            # Find showtimes from formovietickets links
-            showtime_links = pad.find_all('a', href=re.compile(r'formovietickets'))
-            times = []
-            for link in showtime_links:
-                link_text = link.get_text().strip()
-                # Match time patterns like "1:00p" or "7:30p"
-                if re.match(r'\d{1,2}:\d{2}[ap]', link_text, re.I):
-                    time_normalized = parse_time(link_text + 'm')
-                    if time_normalized and time_normalized not in times:
-                        times.append(time_normalized)
+            # Find all rows with movie data (graybar_0 or graybar_1)
+            rows = soup.find_all('tr', class_=re.compile(r'graybar_'))
 
-            if not times:
-                continue
+            for row in rows:
+                # Get title from movieNameList link
+                title_elem = row.find('a', class_='movieNameList')
+                if not title_elem:
+                    continue
 
-            # Get first ticket URL
-            ticket_url = showtime_links[0]['href'] if showtime_links else f'{base_url}/?p=showtimes'
+                title = title_elem.get_text().strip()
+                if not title:
+                    continue
 
-            movies.append({
-                'title': title,
-                'theater': THEATER_INFO['name'],
-                'theater_url': THEATER_INFO['url'],
-                'address': THEATER_INFO['address'],
-                'date': today,
-                'times': times,
-                'format': None,
-                'director': None,
-                'year': None,
-                'ticket_url': ticket_url
-            })
+                # Get showtimes from col_showtimes
+                showtime_td = row.find('td', class_='col_showtimes')
+                if not showtime_td:
+                    continue
+
+                # Extract times (format: "4:30, 6:45, 9:00")
+                showtime_text = showtime_td.get_text()
+                # Get just the times part (before any <br> or showcomment)
+                times_part = showtime_text.split('\n')[0].strip()
+
+                times = []
+                for time_match in re.findall(r'(\d{1,2}:\d{2})', times_part):
+                    # Convert to 12-hour format with AM/PM
+                    hour, minute = map(int, time_match.split(':'))
+                    if hour < 12:
+                        # Morning shows before noon (rare)
+                        if hour == 0:
+                            time_str = f"12:{minute:02d} AM"
+                        else:
+                            time_str = f"{hour}:{minute:02d} AM"
+                    elif hour == 12:
+                        time_str = f"12:{minute:02d} PM"
+                    else:
+                        time_str = f"{hour}:{minute:02d} PM"
+
+                    # BigScreen uses 24h times implicitly based on typical movie schedules
+                    # Most showtimes are PM (afternoon/evening)
+                    # Re-parse: assume times like 4:30, 6:45 are PM
+                    if hour < 10:
+                        # 4:30 means 4:30 PM
+                        time_str = f"{hour}:{minute:02d} PM"
+                    elif hour >= 10 and hour <= 11:
+                        # 10:00, 11:00 - late night, could be AM (midnight show) or PM
+                        # Check context - if it's the only time or very late, it's PM
+                        time_str = f"{hour}:{minute:02d} PM"
+
+                    if time_str not in times:
+                        times.append(time_str)
+
+                if not times:
+                    continue
+
+                # Check if already have this movie for this date
+                existing = next(
+                    (m for m in movies if m['title'] == title and m['date'] == date_str),
+                    None
+                )
+                if existing:
+                    # Add any new times
+                    for t in times:
+                        if t not in existing['times']:
+                            existing['times'].append(t)
+                    continue
+
+                movies.append({
+                    'title': title,
+                    'theater': THEATER_INFO['name'],
+                    'theater_url': THEATER_INFO['url'],
+                    'address': THEATER_INFO['address'],
+                    'date': date_str,
+                    'times': times,
+                    'format': None,
+                    'director': None,
+                    'year': None,
+                    'ticket_url': f"{THEATER_INFO['url']}/?p=showtimes"
+                })
 
         logger.info(f"Logan Theatre: Found {len(movies)} screenings")
 
