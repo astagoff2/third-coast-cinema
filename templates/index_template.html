@@ -22,6 +22,110 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Third Coast Cinema",
+        "description": "Weekly showtimes for Chicago's independent and repertory theaters including Gene Siskel Film Center, Doc Films, Music Box Theatre, Logan Theatre, Facets, Alamo Drafthouse, and Davis Theater.",
+        "url": "https://astagoff2.github.io/third-coast-cinema/",
+        "inLanguage": "en-US",
+        "about": {
+            "@type": "Thing",
+            "name": "Chicago independent cinema showtimes"
+        },
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Film enthusiasts in Chicago"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Third Coast Cinema"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Chicago Art House Theaters",
+        "description": "Independent and repertory movie theaters in Chicago",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Gene Siskel Film Center",
+                    "address": "164 N State St, Chicago, IL",
+                    "url": "https://www.siskelfilmcenter.org"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Doc Films",
+                    "address": "1212 E 59th St, Chicago, IL",
+                    "url": "https://docfilms.org"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Music Box Theatre",
+                    "address": "3733 N Southport Ave, Chicago, IL",
+                    "url": "https://musicboxtheatre.com"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Logan Theatre",
+                    "address": "2646 N Milwaukee Ave, Chicago, IL",
+                    "url": "https://thelogantheatre.com"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Facets",
+                    "address": "1517 W Fullerton Ave, Chicago, IL",
+                    "url": "https://www.facets.org"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Alamo Drafthouse",
+                    "address": "3519 N Clark St, Chicago, IL",
+                    "url": "https://drafthouse.com/chicago"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 7,
+                "item": {
+                    "@type": "MovieTheater",
+                    "name": "Davis Theater",
+                    "address": "4614 N Lincoln Ave, Chicago, IL",
+                    "url": "https://davistheater.com"
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -40,7 +144,7 @@
         <section class="theater-filter">
             <button class="filter-btn active" data-theater="all">All</button>
             {% for theater in theaters %}
-            <button class="filter-btn" data-theater="{{ theater }}">{{ theater | replace('Gene Siskel Film Center', 'Siskel') | replace('Music Box Theatre', 'Music Box') | replace('Alamo Drafthouse', 'Alamo') | replace('Logan Theatre', 'Logan') | replace('Doc Films', 'Doc') }}</button>
+            <button class="filter-btn" data-theater="{{ theater }}">{{ theater | replace('Gene Siskel Film Center', 'Siskel') | replace('Music Box Theatre', 'Music Box') | replace('Alamo Drafthouse', 'Alamo') | replace('Logan Theatre', 'Logan') | replace('Doc Films', 'Doc') | replace('Davis Theater', 'Davis') }}</button>
             {% endfor %}
         </section>
 
@@ -107,6 +211,7 @@
                 <li><a href="https://thelogantheatre.com" target="_blank" rel="noopener">Logan Theatre</a></li>
                 <li><a href="https://www.facets.org" target="_blank" rel="noopener">Facets</a></li>
                 <li><a href="https://drafthouse.com/chicago/theater/wrigleyville" target="_blank" rel="noopener">Alamo Drafthouse</a></li>
+                <li><a href="https://davistheater.com" target="_blank" rel="noopener">Davis Theater</a></li>
             </ul>
         </div>
         <p class="footer-note">Showtimes scraped from theater websites. Verify before attending.</p>

@@ -24,7 +24,8 @@ from scrapers import (
     scrape_logan,
     scrape_facets,
     scrape_siskel,
-    scrape_alamo
+    scrape_alamo,
+    scrape_davis
 )
 from scrapers.letterboxd import enrich_movies_with_letterboxd
 
@@ -65,6 +66,7 @@ def run_scrapers():
         ('Logan Theatre', scrape_logan),
         ('Facets', scrape_facets),
         ('Alamo Drafthouse', scrape_alamo),
+        ('Davis Theater', scrape_davis),
     ]
 
     for name, scraper in scrapers:

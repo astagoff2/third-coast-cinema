@@ -4,6 +4,7 @@ from .logan import scrape_logan
 from .facets import scrape_facets
 from .siskel import scrape_siskel
 from .alamo import scrape_alamo
+from .davis import scrape_davis
 from .utils import get_week_dates
 
 __all__ = [
@@ -13,5 +14,6 @@ __all__ = [
     'scrape_facets',
     'scrape_siskel',
     'scrape_alamo',
+    'scrape_davis',
     'get_week_dates'
 ]
